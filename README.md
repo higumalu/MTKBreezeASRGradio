@@ -39,6 +39,21 @@ flowchart TD
    ```
 3. 開啟終端中顯示的本機網址，錄音或上傳音訊，即可在介面上即時查看逐段字幕、信心指標，並於完成後下載 SRT/TXT。
 
+### 在 Google Colab 執行
+```python
+!pip install -q gradio torch torchaudio transformers
+%pip install -e .
+
+import app
+app.build_interface().launch(share=True)
+```
+> 若 `pip install -e .` 需要構建資訊，請確保 `pyproject.toml` 內已加入：
+> ```toml
+> [build-system]
+> requires = ["setuptools>=61", "wheel"]
+> build-backend = "setuptools.build_meta"
+> ```
+
 ## 開發重點
 - Whisper 生成長度限制會依模型 `max_target_positions` 自動調整，避免超過最大輸出長度。
 - 信心值由模型輸出分數轉換而成，若遇到強制 token 會以預設確定值處理避免錯誤。
